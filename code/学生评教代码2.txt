@@ -1,0 +1,57 @@
+/*
+ * SHMTU Teacher Evaluation
+ * （伪）一键完成课堂教学评价
+ * Original Author: imByteCat
+ * Date: 2019-11-25
+ * modified by fs
+ * Date: 2020-5-18
+ * About: 页面代码疑似会变更，value在取最小与取最大中改变，可以两个代码都试一遍，校验题问题仍未处理
+ *
+ * Usages: 粘贴到浏览器 console 里（F12调用控制台console）
+ * 
+ * Warning: 最后两个校验题需要人工检查
+ *
+ */
+
+var table = new Array();
+table[0] = $(".griddata-even");
+table[1] = $(".griddata-odd");
+var scoreList = new Array();
+var indexOfMinScore;
+
+function indexOfMax(arr) {
+  if (arr.length === 0) {
+    return -1;
+  }
+
+  var max = arr[0];
+  var maxIndex = 0;
+
+  for (var i = 1; i < arr.length; i++) {
+    if (arr[i] > max) {
+      maxIndex = i;
+      max = arr[i];
+    }
+  }
+
+  return maxIndex;
+}
+
+for (count = 0; count < 2; count++) {
+  for (i = 0; i < table[count].length; i++) {
+    if (table[count][i].childElementCount === 3) {
+      for (j = 0; j < 4; j++) {
+        scoreList[j] = eval(table[count][i].children[2].children[j*2].value);
+        indexOfMaxScore = indexOfMax(scoreList);
+        table[count][i].children[2].children[indexOfMaxScore*2].click();
+      }
+    } else {
+      for (j = 0; j < 4; j++) {
+        scoreList[j] = eval(table[count][i].children[1].children[j*2].value);
+        indexOfMaxScore = indexOfMax(scoreList);
+        table[count][i].children[1].children[indexOfMaxScore*2].click();
+      }
+    }
+  
+  }
+}
